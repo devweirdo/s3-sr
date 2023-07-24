@@ -1,0 +1,24 @@
+name: ESP-IDF Build IDF v5.1
+
+on:
+  push:
+    paths:
+    - '.'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+
+    - name: ESP-IDF Build
+      uses: espressif/esp-idf-ci-action@v1
+      with:
+        esp_idf_version: release-v5.1
+        target: esp32s3
+        path: '.'
