@@ -1,4 +1,4 @@
-name: ESP-IDF Build IDF v5.1
+name: ESP-IDF v5.1 Build
 
 on:
   push:
