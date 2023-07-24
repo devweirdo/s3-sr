@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
@@ -14,10 +15,10 @@
 
 #include "bsp_board.h"
 
-int detect_flag                       = 0;
 static esp_afe_sr_iface_t* afe_handle = NULL;
-static volatile int task_flag         = 0;
-srmodel_list_t* models                = NULL;
+static srmodel_list_t* models         = NULL;
+
+extern void sr_detect_action(int cmd_id, int phr_id, char* str, float prob);
 
 void feed_Task(void* arg) {
     esp_afe_sr_data_t* afe_data = arg;
@@ -43,9 +44,12 @@ void feed_Task(void* arg) {
 
 void detect_Task(void* arg) {
     esp_afe_sr_data_t* afe_data = arg;
+    int detect_flag             = 0;
     int afe_chunksize           = afe_handle->get_fetch_chunksize(afe_data);
     char* mn_name               = esp_srmodel_filter(models, ESP_MN_PREFIX, ESP_MN_ENGLISH);
+
     printf("multinet:%s\n", mn_name);
+
     esp_mn_iface_t* multinet       = esp_mn_handle_from_name(mn_name);
     model_iface_data_t* model_data = multinet->create(mn_name, 6000);
     int mu_chunksize               = multinet->get_samp_chunksize(model_data);
@@ -55,6 +59,7 @@ void detect_Task(void* arg) {
     multinet->print_active_speech_commands(model_data);
 
     printf("------------detect start------------\n");
+
     while (1) {
         afe_fetch_result_t* res = afe_handle->fetch(afe_data);
         if (!res || res->ret_value == ESP_FAIL) {
@@ -68,8 +73,8 @@ void detect_Task(void* arg) {
         } else if (res->wakeup_state == WAKENET_CHANNEL_VERIFIED) {
             detect_flag = 1;
             printf("AFE_FETCH_CHANNEL_VERIFIED, channel index: %d\n", res->trigger_channel_id);
-            afe_handle->disable_wakenet(afe_data);
-            afe_handle->disable_aec(afe_data);
+            // afe_handle->disable_wakenet(afe_data);
+            // afe_handle->disable_aec(afe_data);
         }
 
         if (detect_flag == 1) {
@@ -81,12 +86,13 @@ void detect_Task(void* arg) {
 
             if (mn_state == ESP_MN_STATE_DETECTED) {
                 esp_mn_results_t* mn_result = multinet->get_results(model_data);
-                for (int i = 0; i < mn_result->num; i++) {
-                    printf(
-                        "TOP %d, command_id: %d, phrase_id: %d, string: %s, "
-                        "prob: %f\n",
-                        i + 1, mn_result->command_id[i], mn_result->phrase_id[i], mn_result->string, mn_result->prob[i]);
-                }
+                // for (int i = 0; i < mn_result->num; i++) {
+                //     printf(
+                //         "TOP %d, command_id: %d, phrase_id: %d, string: %s, "
+                //         "prob: %f\n",
+                //         i + 1, mn_result->command_id[i], mn_result->phrase_id[i], mn_result->string, mn_result->prob[i]);
+                // }
+                sr_detect_action(mn_result->command_id[0], mn_result->phrase_id[0], mn_result->string, mn_result->prob[0]);
                 printf("-----------listening-----------\n");
             }
 

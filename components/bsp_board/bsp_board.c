@@ -5,6 +5,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "esp_log.h"
+
 #include "driver/gpio.h"
 #include "driver/i2s_std.h"
 #include "driver/i2s_tdm.h"
@@ -22,9 +24,9 @@
 /* I2S Interface Defines */
 #define I2S_MASTER_NUM  I2S_NUM_0
 #define I2S_MCLK_IO     GPIO_NUM_NC
-#define I2S_SCLK_IO     GPIO_NUM_10
-#define I2S_WS_IO       GPIO_NUM_45
-#define I2S_DSDIN_IO    GPIO_NUM_8
+#define I2S_SCLK_IO     GPIO_NUM_42
+#define I2S_WS_IO       GPIO_NUM_40
+#define I2S_DSDIN_IO    GPIO_NUM_41
 #define I2S_SDOUT_IO    GPIO_NUM_NC
 
 #define ADC_I2S_CHANNEL 2
@@ -33,6 +35,7 @@ static const char* TAG             = "bsp_board";
 static i2s_chan_handle_t rx_handle = NULL;
 
 esp_err_t bsp_i2s_init(void) {
+    ESP_LOGI(TAG, "i2s init");
     esp_err_t ret_val          = ESP_OK;
     i2s_chan_config_t chan_cfg = I2S_CHANNEL_DEFAULT_CONFIG(I2S_MASTER_NUM, I2S_ROLE_MASTER);
     ret_val |= i2s_new_channel(&chan_cfg, NULL, &rx_handle);

@@ -3,7 +3,11 @@ import argparse
 import struct
 import math
 
-COMMANDS_LIST = ["hello", "tell me a joke"]
+COMMANDS_LIST = [
+    "hello",
+    "tell me a joke",
+    "who are you",
+]
 
 
 def struct_pack_string(string, max_len=None):
