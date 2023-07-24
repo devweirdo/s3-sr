@@ -1,5 +1,9 @@
 # Speech recognition on ESP32-S3-DevKitC-1 + INMP441
 
+![build v5.0](https://github.com/devweirdo/s3-sr/actions/workflows/build_v5.0.yml/badge.svg)
+
+![build v5.1](https://github.com/devweirdo/s3-sr/actions/workflows/build_v5.1.yml/badge.svg)
+
 ## Overview
 
 Speech recognition example for ESP32-S3-DevKitC-1 with INMP441 MEMS microphone using [esp-sr](https://github.com/espressif/esp-sr).
