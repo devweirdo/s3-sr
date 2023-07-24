@@ -2,8 +2,6 @@ name: ESP-IDF v5.1 Build
 
 on:
   push:
-    paths:
-    - '.'
   workflow_dispatch:
 
 jobs:
