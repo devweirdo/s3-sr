@@ -1,0 +1,12 @@
+.devcontainer/
+.vscode
+build/
+managed_components/
+partition_table/
+dependencies.lock
+sdkconfig
+sdkconfig.old
+
+debug.log
+trace/
+heaptrace-gdbinit
