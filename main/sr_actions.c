@@ -21,7 +21,7 @@ char* strip(char* str) {
     return new_str;
 }
 
-void sr_detect_action(int cmd_id, int phr_id, char* string, float prob) {
+void sr_detect_action_execute(int cmd_id, int phr_id, char* string, float prob) {
     char* str = strip(string);
 
     printf("%s\n", str);

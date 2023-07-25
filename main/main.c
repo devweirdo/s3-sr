@@ -18,7 +18,7 @@
 static esp_afe_sr_iface_t* afe_handle = NULL;
 static srmodel_list_t* models         = NULL;
 
-extern void sr_detect_action(int cmd_id, int phr_id, char* str, float prob);
+extern void sr_detect_action_execute(int cmd_id, int phr_id, char* str, float prob);
 
 void feed_Task(void* arg) {
     esp_afe_sr_data_t* afe_data = arg;
@@ -86,13 +86,15 @@ void detect_Task(void* arg) {
 
             if (mn_state == ESP_MN_STATE_DETECTED) {
                 esp_mn_results_t* mn_result = multinet->get_results(model_data);
-                // for (int i = 0; i < mn_result->num; i++) {
-                //     printf(
-                //         "TOP %d, command_id: %d, phrase_id: %d, string: %s, "
-                //         "prob: %f\n",
-                //         i + 1, mn_result->command_id[i], mn_result->phrase_id[i], mn_result->string, mn_result->prob[i]);
-                // }
-                sr_detect_action(mn_result->command_id[0], mn_result->phrase_id[0], mn_result->string, mn_result->prob[0]);
+                for (int i = 0; i < mn_result->num; i++) {
+                    printf(
+                        "TOP %d, command_id: %d, phrase_id: %d, string: %s, "
+                        "prob: %f\n",
+                        i + 1, mn_result->command_id[i], mn_result->phrase_id[i], mn_result->string, mn_result->prob[i]);
+                }
+
+                // Take action when detected
+                sr_detect_action_execute(mn_result->command_id[0], mn_result->phrase_id[0], mn_result->string, mn_result->prob[0]);
                 printf("-----------listening-----------\n");
             }
 
