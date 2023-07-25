@@ -1,5 +1,3 @@
-#include "bsp_board.h"
-
 #include <stdio.h>
 
 #include "freertos/FreeRTOS.h"
@@ -11,15 +9,7 @@
 #include "driver/i2s_std.h"
 #include "driver/i2s_tdm.h"
 
-#include "dl_lib_convq_queue.h"
-#include "esp_afe_sr_iface.h"
-#include "esp_afe_sr_models.h"
-#include "esp_mn_iface.h"
-#include "esp_mn_models.h"
-#include "esp_process_sdkconfig.h"
-#include "esp_wn_iface.h"
-#include "esp_wn_models.h"
-#include "model_path.h"
+#include "bsp_board.h"
 
 /* I2S Interface Defines */
 #define I2S_MASTER_NUM  I2S_NUM_0
