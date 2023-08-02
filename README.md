@@ -1,5 +1,7 @@
 # Speech recognition on ESP32-S3-DevKitC-1 + INMP441
 
+![build v4.4](https://github.com/devweirdo/s3-sr/actions/workflows/build_v4.4.yml/badge.svg)
+
 ![build v5.0](https://github.com/devweirdo/s3-sr/actions/workflows/build_v5.0.yml/badge.svg)
 
 ![build v5.1](https://github.com/devweirdo/s3-sr/actions/workflows/build_v5.1.yml/badge.svg)
