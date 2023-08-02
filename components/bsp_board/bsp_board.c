@@ -99,8 +99,8 @@ esp_err_t bsp_i2s_deinit(void) {
     ret_val |= i2s_del_channel(rx_handle);
     rx_handle = NULL;
 #else
-    ret_val |= i2s_stop(i2s_num);
-    ret_val |= i2s_driver_uninstall(i2s_num);
+    ret_val |= i2s_stop(I2S_MASTER_NUM);
+    ret_val |= i2s_driver_uninstall(I2S_MASTER_NUM);
 #endif
     return ret_val;
 }
