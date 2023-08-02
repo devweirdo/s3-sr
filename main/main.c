@@ -53,7 +53,6 @@ void detect_Task(void* arg) {
     esp_mn_iface_t* multinet       = esp_mn_handle_from_name(mn_name);
     model_iface_data_t* model_data = multinet->create(mn_name, 6000);
     int mu_chunksize               = multinet->get_samp_chunksize(model_data);
-    esp_mn_commands_update_from_sdkconfig(multinet, model_data);  // Add speech commands from sdkconfig
     assert(mu_chunksize == afe_chunksize);
     // print active speech commands
     multinet->print_active_speech_commands(model_data);
