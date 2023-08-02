@@ -1,10 +1,8 @@
 #include <stdio.h>
-
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
 #include "esp_log.h"
-
 #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 #include "driver/i2s_std.h"
 #include "driver/i2s_tdm.h"
@@ -12,6 +10,7 @@
 #else
 #include "driver/i2s.h"
 #endif
+#include "driver/gpio.h"
 
 #include "bsp_board.h"
 
