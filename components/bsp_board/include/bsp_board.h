@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include "esp_err.h"
+#include "esp_idf_version.h"
 
 #ifdef __cplusplus
 extern "C" {
