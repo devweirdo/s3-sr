@@ -2,6 +2,12 @@ name: ESP-IDF v4.4 Build
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.github/**'
   workflow_dispatch:
 
 jobs:
